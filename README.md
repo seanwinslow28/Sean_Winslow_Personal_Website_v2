@@ -1,83 +1,188 @@
- 🌐 Website Template
+# Sean Winslow Personal Website V2
 
-This is a modern and minimal template for building web pages or single-page applications. It's built with:
+A modern, animated portfolio website built with React, featuring smooth locomotive scrolling effects and a professional design showcasing AI Product Management expertise.
 
-- **React** for component-based architecture
-- **Vite** for fast development and build tooling
-- **TailwindCSS** for utility-first styling
-- **Framer Motion** for smooth animations
-- **Vanilla HTML, CSS, and JavaScript** for static assets and compatibility
+## 🎨 Features
 
----
+- **Locomotive Scroll**: Smooth, buttery scrolling effects throughout the site
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
+- **Modern Animations**: Parallax effects and scroll-triggered animations
+- **Professional Layout**: Clean, modern design with gradient backgrounds
+- **Single Page Application**: All sections accessible through smooth navigation
 
-## 📁 Project Structure
+## 🏗️ Project Structure
 
-```bash
-.
-├── css/                 # Traditional stylesheets (e.g. styles.css)
-├── images/              # Static images
-├── index.html           # Root HTML file (used by Vite)
-├── js/                  # Vanilla JavaScript files (e.g. script.js)
-├── public/              # Public assets served directly
-├── src/                 # React source code
-│   ├── App.jsx          # Main App component
-│   ├── assets/          # Static files used in components
-│   ├── components/      # Reusable React components
-│   ├── index.css        # TailwindCSS entry point
-│   └── main.jsx         # React DOM entry point
-├── tailwind.config.js   # TailwindCSS config
-├── postcss.config.js    # PostCSS setup
-├── vite.config.js       # Vite configuration
-└── package.json         # Project metadata & dependencies
 ```
-
----
+├── index.html              # Main HTML entry point
+├── package.json            # Dependencies and scripts
+├── vite.config.js         # Vite configuration
+├── src/
+│   ├── main.jsx           # React entry point
+│   ├── App.jsx            # Main application component
+│   ├── index.css          # Global styles and locomotive scroll setup
+│   └── pages/
+│       ├── Home.jsx       # Main page with all sections
+│       ├── Home.css       # Styles for all sections
+│       └── About.css      # Additional about page styles
+```
 
 ## 🚀 Getting Started
 
-### 1. Install Dependencies
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-```bash
-npm install
+### Installation
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Open your browser:**
+   Navigate to `http://localhost:5173` to see your website
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 📝 Website Sections
+
+### 🏠 Hero Section
+- Professional introduction
+- AI Product Management focus
+- Call-to-action buttons with smooth scrolling
+- Placeholder for headshot with animation hooks
+
+### 💼 Projects Section
+- 4 project cards with hover effects
+- Categories: "How I Think", "Featured Projects", "Prototypes", "Product Deconstructions"
+- Staggered scroll animations
+
+### 👨‍💻 About Me Section
+- Personal background and creative process
+- Placeholder for animated self-portraits
+- Side-by-side layout with text and visuals
+
+### 🎥 Testimonials Section
+- Placeholder for mockumentary-style video
+- Integration ready for Veo 3 generated content
+- Professional testimonial layout
+
+### 🤝 Let's Connect Section
+- Social media widget placeholders
+- Email, LinkedIn, Twitter, and YouTube integration points
+- Contact form ready layout
+
+## 🎯 Key Technologies
+
+- **React 18**: Modern React with functional components and hooks
+- **Vite**: Fast build tool and development server
+- **Locomotive Scroll**: Smooth scrolling library
+- **CSS Grid & Flexbox**: Modern responsive layouts
+- **CSS Custom Properties**: Dynamic theming support
+
+## 🎨 Design System
+
+### Colors
+- **Primary**: `#f72585` (Pink accent)
+- **Secondary**: `#7209b7` (Purple)
+- **Background**: `#000000` (Black)
+- **Surface**: `#111111` (Dark gray)
+- **Text**: `#ffffff` (White)
+
+### Typography
+- **Font Family**: Inter (Google Fonts)
+- **Weights**: 300, 400, 500, 600, 700
+
+### Animations
+- **Locomotive Scroll**: Smooth scrolling with parallax effects
+- **CSS Transitions**: Hover effects and micro-interactions
+- **Transform Effects**: Scroll-triggered animations
+
+## 🔧 Customization
+
+### Adding Content
+1. **Update hero text** in `src/pages/Home.jsx`
+2. **Add project details** in the projects grid section
+3. **Replace placeholders** with actual images and content
+4. **Update social links** in the connect section
+
+### Styling
+- **Global styles**: Edit `src/index.css`
+- **Section-specific styles**: Edit `src/pages/Home.css`
+- **Colors and spacing**: Update CSS custom properties
+
+### Locomotive Scroll Configuration
+Modify scroll settings in `src/pages/Home.jsx`:
+```javascript
+const scroll = new LocomotiveScroll({
+  el: scrollRef.current,
+  smooth: true,
+  multiplier: 1, // Adjust scroll speed
+  class: 'is-revealed'
+});
 ```
 
-### 2. Run the Dev Server
+## 📱 Responsive Breakpoints
 
-```bash
-npm run dev
-```
+- **Desktop**: 1200px and above
+- **Tablet**: 768px - 1199px
+- **Mobile**: Below 768px
 
-Visit: `http://localhost:5173/`
+## 🚀 Deployment
 
----
-
-## 🛠️ Features
-
-- ⚡ Blazing-fast development with **Vite**
-- 🎨 Beautiful, responsive design with **TailwindCSS**
-- 🎬 Smooth page and element animations using **Framer Motion**
-- ♻️ Modular React components for easy scaling
-- 📦 Pre-configured build scripts and Tailwind/PostCSS setup
-
----
-
-## 🧪 Building for Production
-
+### Build for Production
 ```bash
 npm run build
 ```
 
-Output will be in the `dist/` folder.
+### Deploy to Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Vercel will automatically detect the Vite configuration
+3. Deploy with zero configuration
 
----
+### Deploy to Netlify
+1. Build the project: `npm run build`
+2. Upload the `dist` folder to Netlify
+3. Configure redirects for SPA routing
+
+## 🔮 Future Enhancements
+
+- [ ] Add actual project content and images
+- [ ] Integrate real testimonial videos
+- [ ] Implement contact form functionality
+- [ ] Add blog section
+- [ ] Integrate CMS for easy content updates
+- [ ] Add loading animations
+- [ ] Implement dark/light theme toggle
+- [ ] Add more interactive animations
+
+## 🐛 Troubleshooting
+
+### Locomotive Scroll Issues
+- Ensure all scroll elements have proper `data-scroll` attributes
+- Check that the scroll container has `data-scroll-container`
+- Verify locomotive-scroll CSS is imported
+
+### Build Issues
+- Clear node_modules and reinstall: `rm -rf node_modules && npm install`
+- Update dependencies: `npm update`
+- Check Node.js version compatibility
 
 ## 📄 License
 
-MIT License — feel free to use and modify!
+This project is private and proprietary to Sean Winslow.
 
 ---
 
-## 🙌 Acknowledgments
+**Built with ❤️ by Sean Winslow**
 
-Inspired by modern web dev best practices. Great for portfolio projects, landing pages, and rapid prototyping.
+*AI Product Management | Creative Technology | Innovation*
 

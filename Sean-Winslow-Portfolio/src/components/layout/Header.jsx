@@ -4,15 +4,6 @@ import NavWidget from '../ui/NavWidget';
 import { handleNavClick } from '../../utils/smoothScroll';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const navItems = [
     { href: '#projects', label: 'Projects', variant: 'default' },
@@ -22,11 +13,7 @@ const Header = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}

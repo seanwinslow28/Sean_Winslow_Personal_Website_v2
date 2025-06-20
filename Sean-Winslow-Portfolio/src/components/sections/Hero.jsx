@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../ui/Button';
-import InteractiveHoverButton from '../ui/InteractiveHoverButton';
+import ExpandingButton from '../ui/ExpandingButton';
 import { handleNavClick } from '../../utils/smoothScroll';
 
 const Hero = () => {
@@ -25,7 +25,7 @@ const Hero = () => {
           <Button href="#about" variant="gradient" onClick={(e) => handleNavClick(e, '#about')}>
             About me
           </Button>
-          <InteractiveHoverButton 
+          <ExpandingButton 
             text="Playground"
             href="#contact" 
             onClick={(e) => handleNavClick(e, '#contact')}

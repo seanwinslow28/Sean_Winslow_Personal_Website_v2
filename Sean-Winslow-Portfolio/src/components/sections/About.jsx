@@ -4,7 +4,7 @@ import ImageSwiper from '../ui/ImageSwiper';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-20 px-4" style={{ backgroundColor: 'rgba(248, 248, 255, 0.95)' }}>
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="text-4xl md:text-6xl font-bold text-center mb-16 text-gray-900 leading-tight font-serif"

@@ -5,7 +5,7 @@ import { handleNavClick } from '../../utils/smoothScroll';
 
 const Hero = () => {
   return (
-    <section className="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-32 pb-20">
+    <section className="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-32 pb-20" style={{ backgroundColor: 'rgba(248, 248, 255, 0.95)' }}>
       <div className="container-custom text-center relative z-10 mt-8">
         <div className="max-w-4xl mx-auto mb-12">
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight font-serif">
@@ -35,7 +35,7 @@ const Hero = () => {
         {/* Hero Character Image */}
         <div className="mb-8">
           <img 
-            src="/images/Headshot_Placeholder.png"
+            src="/images/2025_SW_Headshot.jpg"
             alt="Sean Winslow"
             className="mx-auto rounded-2xl shadow-lg"
             style={{ width: '386px', height: '506px', objectFit: 'cover' }}

@@ -9,13 +9,20 @@ const NavWidget = ({
   className = "",
   ...props
 }) => {
-  const backgroundStyle = variant === 'connect' 
-    ? {
-        background: 'linear-gradient(135deg, rgba(248, 248, 255, 0.9) 0%, rgba(248, 248, 255, 0.7) 50%, rgba(248, 248, 255, 0.4) 100%), linear-gradient(90deg, #f8f8ff 0%, #ff6b35 100%)'
-      }
-    : {
-        background: 'linear-gradient(135deg, #f8f8ff 0%, rgba(248, 248, 255, 0.9) 50%, rgba(248, 248, 255, 0.7) 100%), radial-gradient(ellipse 60px 40px at 85% 50%, #1a2b56 0%, #ffffff 70%)'
-      };
+  const getBackgroundStyle = () => {
+    switch (variant) {
+      case 'connect':
+        return {
+          background: 'linear-gradient(135deg, #F3904F 0%, #3B4371 100%)'
+        };
+      default:
+        return {
+          background: 'linear-gradient(135deg, #F3904F 0%, #3B4371 100%)'
+        };
+    }
+  };
+
+  const backgroundStyle = getBackgroundStyle();
 
   const MotionComponent = motion.a;
 
@@ -25,8 +32,8 @@ const NavWidget = ({
       onClick={onClick}
       className={`
         relative px-6 py-3 rounded-full cursor-pointer
-        text-base font-semibold text-black no-underline
-        overflow-hidden border-2 border-gray-400
+        text-base font-semibold text-white no-underline
+        overflow-hidden border-2 border-white/30
         backdrop-blur-sm
         ${className}
       `}
@@ -34,8 +41,9 @@ const NavWidget = ({
       initial={{ y: 0 }}
       whileHover={{ 
         y: -2,
-        borderColor: '#909090',
-        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)'
+        borderColor: 'rgba(255, 255, 255, 0.6)',
+        boxShadow: '0 8px 25px rgba(243, 144, 79, 0.3)',
+        scale: 1.05
       }}
       whileTap={{ scale: 0.98 }}
       transition={{ 

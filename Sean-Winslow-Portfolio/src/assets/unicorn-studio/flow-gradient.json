@@ -1,0 +1,65 @@
+{
+  "version": "1.4.25",
+  "id": "4swJSCcGnB2yGsrLWAyH",
+  "name": "Flow gradient",
+  "fps": 24,
+  "dpi": 1.5,
+  "scale": 1,
+  "includeLogo": false,
+  "isProduction": false,
+  "layers": [
+    {
+      "type": "gradient",
+      "colors": [
+        "#002654",
+        "#004B87", 
+        "#0066CC",
+        "#4A90E2",
+        "#87CEEB",
+        "#FFFFFF"
+      ],
+      "speed": 0.25,
+      "visible": true
+    },
+    {
+      "type": "shape",
+      "fill": "#EA9B01",
+      "width": 945,
+      "height": 962,
+      "left": 0.33,
+      "top": 0.76,
+      "trackMouse": -0.15,
+      "blendMode": "OVERLAY",
+      "visible": true
+    },
+    {
+      "type": "shape", 
+      "fill": "#FFB341",
+      "width": 945,
+      "height": 962,
+      "left": 0.67,
+      "top": 0.31,
+      "trackMouse": 0.22,
+      "blendMode": "OVERLAY",
+      "visible": true
+    }
+  ],
+  "effects": [
+    {
+      "type": "blur",
+      "amount": 2.8,
+      "visible": true
+    },
+    {
+      "type": "flowField",
+      "speed": 0.1,
+      "visible": true
+    },
+    {
+      "type": "grain",
+      "amount": 0.22,
+      "speed": 0.5,
+      "visible": true
+    }
+  ]
+} 

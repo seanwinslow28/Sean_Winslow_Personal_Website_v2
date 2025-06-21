@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -248,10 +249,10 @@ body {
   }
 
   .gradient-text {
-    background: linear-gradient(to right, #3B4371, #6B5A7F, #A56A6F, #F3904F);
-    background-clip: text;
+    background: linear-gradient(135deg, #EA9B01 0%, #FFB341 100%);
     -webkit-background-clip: text;
-    color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   .btn-primary {
@@ -501,4 +502,192 @@ html.has-scroll-dragging {
 
 .is-hidden {
   visibility: hidden;
+}
+
+/* Performance optimizations for smooth animations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Optimize font rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Enable hardware acceleration for the body */
+  transform: translateZ(0);
+  /* Optimize for animations */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Animation performance optimizations */
+@media (min-width: 768px) {
+  * {
+    /* Enable hardware acceleration for all elements on desktop */
+    will-change: transform;
+  }
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 767px) {
+  * {
+    /* Reduce animations on mobile for better performance */
+    animation-duration: 0.5s !important;
+    transition-duration: 0.3s !important;
+  }
+}
+
+/* High refresh rate optimization */
+@media (min-resolution: 120dpi) {
+  * {
+    /* Optimize for high DPI displays */
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom GPU-accelerated classes */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.smooth-animation {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Optimize background animations specifically */
+.background-animation {
+  will-change: background-position, transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* UnicornStudio fallback animation */
+@keyframes gradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 25%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 25% 0%;
+  }
+}
+
+/* Lottie animation optimizations */
+.lottie-container {
+  /* Enable hardware acceleration for Lottie */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+  /* Improve rendering quality */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.lottie-container svg {
+  /* Optimize SVG rendering in Lottie */
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: optimizeQuality;
+  /* Enable hardware acceleration for SVG elements */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Lottie interaction states */
+.lottie-hover {
+  transition: transform 0.3s ease;
+}
+
+.lottie-hover:hover {
+  transform: translate3d(0, 0, 0) scale(1.05);
+}
+
+.lottie-scroll {
+  /* Optimize for scroll-triggered animations */
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Lottie loading states */
+.lottie-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: lottieShimmer 2s infinite;
+}
+
+@keyframes lottieShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive Lottie sizes */
+.lottie-small {
+  width: 100px;
+  height: 100px;
+}
+
+.lottie-medium {
+  width: 200px;
+  height: 200px;
+}
+
+.lottie-large {
+  width: 400px;
+  height: 400px;
+}
+
+.lottie-fullscreen {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Font optimizations */
+.font-display {
+  font-family: 'Playfair Display', serif;
+  font-display: swap;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+  font-display: swap;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+  font-display: swap;
 }

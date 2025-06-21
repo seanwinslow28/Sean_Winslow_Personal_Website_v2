@@ -63,7 +63,10 @@ const SocialWidget = ({ platform, href, className = '' }) => {
       aria-label={getPlatformLabel()}
     >
       {/* Gradient background effect on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+           style={{
+             background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(206, 250, 5, 0.1) 50%, rgba(234, 155, 1, 0.1) 100%)'
+           }} />
       
       {/* Shimmer effect */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

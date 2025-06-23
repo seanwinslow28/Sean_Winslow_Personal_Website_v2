@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react-swc'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/Sean_Winslow_Personal_Website_v2/',
   build: {
     // Enable source maps for better debugging
     sourcemap: false,

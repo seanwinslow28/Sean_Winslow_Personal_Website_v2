@@ -90,7 +90,7 @@ const Hero = () => {
             {/* Right side - Photo */}
             <div className="flex justify-center lg:justify-end mt-12 lg:mt-0">
               <TiltedCard
-                imageSrc="/images/Hero_Page_Image.jpg"
+                imageSrc={`${import.meta.env.BASE_URL}images/Hero_Page_Image.jpg`}
                 altText="Sean Winslow - AI Product Manager"
                 captionText="Move your mouse to interact"
                 containerHeight="506px"

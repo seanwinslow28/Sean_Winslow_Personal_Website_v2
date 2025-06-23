@@ -46,7 +46,7 @@ const About = () => {
             viewport={{ once: true }}
           >
             <ImageSwiper
-              images="/images/About_Me_4.png,/images/About_Me_2.png,/images/About_Me_3.png,/images/About_Me_1.png,/images/About_Me_5.png,/images/About_Me_6.png,/images/About_Me_7.png,/images/About_Me_8.png,/images/About_Me_9.png"
+              images={`${import.meta.env.BASE_URL}images/About_Me_4.png,${import.meta.env.BASE_URL}images/About_Me_2.png,${import.meta.env.BASE_URL}images/About_Me_3.png,${import.meta.env.BASE_URL}images/About_Me_1.png,${import.meta.env.BASE_URL}images/About_Me_5.png,${import.meta.env.BASE_URL}images/About_Me_6.png,${import.meta.env.BASE_URL}images/About_Me_7.png,${import.meta.env.BASE_URL}images/About_Me_8.png,${import.meta.env.BASE_URL}images/About_Me_9.png`}
               cardWidth={360}
               cardHeight={480}
               className="mx-auto"

@@ -9,8 +9,9 @@ const ExpandingButton = ({ text = "Playground", href = "#", onClick }) => {
 
   return (
     <a href={href} onClick={handleClick}>
-      <button className="group relative inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full font-medium text-white border-2 transition-all duration-300 hover:w-40"
+      <button className="group relative inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full font-medium border-2 transition-all duration-300 hover:w-40"
         style={{
+          color: '#1e3a8a', // Navy blue for text and arrow
           background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, #CEFA05 50%, #EA9B01 100%)',
           borderColor: 'rgba(255, 255, 255, 0.2)',
           backdropFilter: 'blur(10px)',
@@ -25,7 +26,7 @@ const ExpandingButton = ({ text = "Playground", href = "#", onClick }) => {
           e.target.style.boxShadow = '0 4px 15px rgba(206, 250, 5, 0.2)';
         }}
       >
-        <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-200 group-hover:-translate-x-4 group-hover:opacity-100 px-2">
+        <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-200 group-hover:-translate-x-4 group-hover:opacity-100" style={{ background: 'transparent' }}>
           {text}
         </div>
         <div className="absolute right-4">

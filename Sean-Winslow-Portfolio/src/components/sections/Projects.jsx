@@ -57,12 +57,9 @@ const Projects = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-semibold text-black mb-4" style={{ fontFamily: 'Instrument Sans', fontWeight: 600 }}>
+          <h2 className="text-4xl md:text-5xl font-semibold text-black mb-4" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}>
             My Projects
           </h2>
-          <p className="text-xl text-gray-800 italic" style={{ fontFamily: 'Instrument Sans' }}>
-            Exploring AI & ML through creative solutions
-          </p>
         </div>
 
         {/* Cards Grid */}
@@ -151,7 +148,7 @@ const Projects = () => {
                       transform: `scale(${isHovered ? 1.02 : 1})`
                     }}
                   >
-                    <span className="text-gray-600 text-sm font-medium" style={{ fontFamily: 'Instrument Sans' }}>
+                    <span className="text-gray-600 text-sm font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                       Project Preview
                     </span>
                   </div>
@@ -161,7 +158,7 @@ const Projects = () => {
                     <h3 
                       className="text-2xl text-black mb-3"
                       style={{
-                        fontFamily: 'Instrument Sans',
+                        fontFamily: 'Montserrat, sans-serif',
                         fontWeight: 600,
                         letterSpacing: '-0.01em',
                         lineHeight: 1.2,
@@ -174,8 +171,8 @@ const Projects = () => {
                     <p 
                       className="text-sm text-gray-800 mb-5 leading-relaxed"
                       style={{
-                        fontFamily: 'Instrument Sans',
-                        fontWeight: 350,
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontWeight: 400,
                         textShadow: isHovered ? '0 1px 2px rgba(0,0,0,0.05)' : 'none'
                       }}
                     >
@@ -189,7 +186,7 @@ const Projects = () => {
                           key={index}
                           className="px-3 py-1 rounded-full text-xs font-medium text-gray-800 transition-colors duration-300"
                           style={{
-                            fontFamily: 'Instrument Sans',
+                            fontFamily: 'Montserrat, sans-serif',
                             background: isHovered ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.6)'
                           }}
                         >
@@ -203,7 +200,7 @@ const Projects = () => {
                       href={project.link}
                       className="inline-flex items-center text-black text-sm font-medium mt-auto opacity-90 hover:opacity-100 transition-all duration-300"
                       style={{
-                        fontFamily: 'Instrument Sans',
+                        fontFamily: 'Montserrat, sans-serif',
                         fontWeight: 600,
                         filter: isHovered ? 'drop-shadow(0 0 5px rgba(0, 0, 0, 0.3))' : 'none'
                       }}

@@ -21,7 +21,8 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo - Far Left */}
           <motion.div
-            className="text-2xl font-bold font-display"
+            className="text-2xl font-bold"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -38,37 +39,50 @@ const Header = () => {
           </motion.div>
 
           {/* Navigation - Far Right */}
-          <nav className="hidden md:flex items-center space-x-2 text-white/80 text-base font-medium">
-            {navItems.map((item, index) => (
-              <div key={item.href} className="flex items-center">
-                <motion.a
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="hover:text-white transition-colors duration-200 cursor-pointer"
-                  whileHover={{ 
-                    scale: 1.1,
-                    y: -2,
-                    rotate: [0, -2, 2, 0],
-                    textShadow: "0px 0px 8px rgba(243, 144, 79, 0.8)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 400, 
-                    damping: 10,
-                    rotate: {
-                      duration: 0.3,
-                      ease: "easeInOut"
-                    }
-                  }}
-                >
-                  {item.label}
-                </motion.a>
-                {index < navItems.length - 1 && (
-                  <span className="mx-2 text-white/40">/</span>
-                )}
-              </div>
-            ))}
+          <nav className="hidden md:flex items-center space-x-2 text-base font-semibold">
+            {navItems.map((item, index) => {
+                             const getNavItemColor = () => {
+                 if (item.label === 'Projects' || item.label === 'About' || item.label === 'Connect') {
+                   return '#CEFA05'; // Lime green
+                 }
+                 return '#ffffff'; // Default white
+               };
+
+              return (
+                <div key={item.href} className="flex items-center">
+                                     <motion.a
+                     href={item.href}
+                     onClick={(e) => handleNavClick(e, item.href)}
+                     className="hover:opacity-80 transition-all duration-200 cursor-pointer"
+                     style={{ 
+                       color: getNavItemColor(),
+                       textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                     }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      y: -2,
+                      rotate: [0, -2, 2, 0],
+                      textShadow: `0px 0px 8px ${getNavItemColor()}80`,
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 400, 
+                      damping: 10,
+                      rotate: {
+                        duration: 0.3,
+                        ease: "easeInOut"
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </motion.a>
+                  {index < navItems.length - 1 && (
+                    <span className="mx-2 text-white/40">/</span>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           {/* Mobile menu button - Far Right */}

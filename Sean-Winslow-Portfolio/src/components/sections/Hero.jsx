@@ -29,17 +29,21 @@ const Hero = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
             {/* Left side - Text content */}
             <div className="text-left lg:pr-8">
-              <h1 className="text-black mb-8" style={{ 
-                fontFamily: 'Instrument Sans',
-                fontWeight: 600,
+              <h1 className="text-white mb-8" style={{ 
+                fontFamily: 'Montserrat, sans-serif',
+                fontWeight: 500,
                 lineHeight: '1.1', 
                 letterSpacing: '-0.02em',
-                marginBottom: '2rem'
+                marginBottom: '2rem',
+                textAlign: 'left',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
               }}>
                 <div className="block mb-1" style={{ 
-                  fontSize: 'clamp(3.5rem, 8vw, 5.5rem)',
+                  fontSize: 'clamp(4rem, 9vw, 6.5rem)',
                   lineHeight: '1.0',
-                  letterSpacing: '-0.01em'
+                  letterSpacing: '-0.01em',
+                  textAlign: 'left',
+                  marginLeft: '0.12em'
                 }}>
                   AI&ML
                 </div>
@@ -48,18 +52,22 @@ const Hero = () => {
                   style={{
                     fontSize: 'clamp(3rem, 8vw, 6rem)',
                     lineHeight: '1.0',
-                    letterSpacing: '-0.01em'
+                    letterSpacing: '-0.01em',
+                    textAlign: 'left'
                   }}
                 >
                   Creative Solutions
                 </div>
               </h1>
               
-              <p className="text-xl lg:text-2xl text-gray-800 max-w-xl italic mb-12" style={{ 
-                fontFamily: 'Instrument Sans',
+              <p className="text-xl lg:text-2xl text-white max-w-xl mb-12" style={{ 
+                fontFamily: 'Montserrat, sans-serif',
+                fontWeight: 400,
                 lineHeight: '1.6',
                 letterSpacing: '0.02em',
-                wordSpacing: '0.05em'
+                wordSpacing: '0.05em',
+                textAlign: 'left',
+                textShadow: '0 1px 3px rgba(0, 0, 0, 0.08)'
               }}>
                 I'm an AI Product Manager exploring what's possible through left-brain analytics and right-brain development.
               </p>
@@ -68,7 +76,7 @@ const Hero = () => {
                 <Button href="#projects" variant="blue" onClick={(e) => handleNavClick(e, '#projects')}>
                   My Projects
                 </Button>
-                <Button href="#about" variant="lime" onClick={(e) => handleNavClick(e, '#about')}>
+                <Button href="#about" variant="blue" onClick={(e) => handleNavClick(e, '#about')}>
                   About Me
                 </Button>
                 <ExpandingButton 

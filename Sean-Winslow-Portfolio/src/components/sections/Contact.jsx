@@ -16,7 +16,8 @@ const Contact = () => {
       <section className="py-20 px-4" style={{ backgroundColor: 'rgba(248, 248, 255, 0.95)' }}>
         <div className="max-w-7xl mx-auto text-center">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-16 text-gray-900 leading-tight font-serif"
+            className="text-4xl md:text-6xl mb-16 text-gray-900 leading-tight"
+            style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -32,7 +33,7 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="text-gray-600 text-lg mb-4">Video Testimonial</div>
+            <div className="text-gray-600 text-lg mb-4" style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 400 }}>Video Testimonial</div>
             <div className="aspect-video bg-gray-50 rounded-xl flex items-center justify-center border border-gray-300">
               <div className="text-gray-500">📹 Video Placeholder</div>
             </div>
@@ -44,7 +45,8 @@ const Contact = () => {
       <section id="contact" className="py-20 px-4" style={{ backgroundColor: 'rgba(248, 248, 255, 0.95)' }}>
         <div className="max-w-7xl mx-auto text-center">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold mb-16 text-gray-900 leading-tight font-serif"
+            className="text-4xl md:text-6xl mb-16 text-gray-900 leading-tight"
+            style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 500 }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

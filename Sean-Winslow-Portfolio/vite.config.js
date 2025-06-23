@@ -26,7 +26,9 @@ export default defineConfig({
     // Optimize for performance
     fs: {
       strict: false
-    }
+    },
+    // Allow localtunnel hosts
+    allowedHosts: ['witty-peas-press.loca.lt', '.loca.lt']
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', 'lottie-react', 'lottie-web', '@lottiefiles/lottie-interactivity']

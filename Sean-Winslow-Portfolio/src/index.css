@@ -108,6 +108,7 @@
 
 html {
     /* Remove default scroll-behavior to let Lenis handle it */
+    scroll-behavior: auto;
   }
 
   html.lenis {

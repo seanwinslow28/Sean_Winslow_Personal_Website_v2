@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ImageSwiper from '../ui/ImageSwiper';
+import { getAssetPath } from '../../utils/assetPath';
 
 const About = () => {
   return (
@@ -46,7 +47,17 @@ const About = () => {
             viewport={{ once: true }}
           >
             <ImageSwiper
-              images="./images/About_Me_4.png,./images/About_Me_2.png,./images/About_Me_3.png,./images/About_Me_1.png,./images/About_Me_5.png,./images/About_Me_6.png,./images/About_Me_7.png,./images/About_Me_8.png,./images/About_Me_9.png"
+              images={[
+                'images/About_Me_4.png',
+                'images/About_Me_2.png',
+                'images/About_Me_3.png',
+                'images/About_Me_1.png',
+                'images/About_Me_5.png',
+                'images/About_Me_6.png',
+                'images/About_Me_7.png',
+                'images/About_Me_8.png',
+                'images/About_Me_9.png'
+              ].map(img => getAssetPath(img)).join(',')}
               cardWidth={360}
               cardHeight={480}
               className="mx-auto"

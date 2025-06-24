@@ -153,20 +153,21 @@ const UnicornStudioBackground = ({ onLoadingChange }) => {
     loadUnicornStudio();
   }, [performanceSettings, isVisible]);
 
-  // Fallback CSS animation for devices without background animations support
+  // Mobile/low-performance device fallback - static gradient for better performance
   if (!performanceSettings.enableBackgroundAnimations) {
     return (
       <div 
         ref={containerRef}
-        className="fixed inset-0 -z-10 gpu-accelerated background-animation"
+        className="fixed inset-0 -z-10"
         style={{
           background: `
-            radial-gradient(circle at 20% 80%, rgba(234, 155, 1, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 179, 65, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 20% 80%, rgba(234, 155, 1, 0.2) 0%, transparent 60%),
+            radial-gradient(circle at 80% 20%, rgba(255, 179, 65, 0.2) 0%, transparent 60%),
             linear-gradient(135deg, #002654 0%, #4682B4 50%, #87CEEB 100%)
           `,
-          backgroundSize: '400% 400%',
-          animation: performanceSettings.deviceInfo.reducedMotion ? 'none' : 'gradientFlow 8s ease-in-out infinite'
+          // Static background for mobile performance
+          backgroundAttachment: 'fixed',
+          willChange: 'auto' // Don't reserve GPU resources for static background
         }}
       />
     );
@@ -190,15 +191,15 @@ const UnicornStudioBackground = ({ onLoadingChange }) => {
       {/* Fallback background while loading */}
       {!isLoaded && (
         <div 
-          className="fixed inset-0 -z-10 gpu-accelerated background-animation"
+          className="fixed inset-0 -z-10"
           style={{
             background: `
-              radial-gradient(circle at 20% 80%, rgba(234, 155, 1, 0.3) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 179, 65, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(234, 155, 1, 0.2) 0%, transparent 60%),
+              radial-gradient(circle at 80% 20%, rgba(255, 179, 65, 0.2) 0%, transparent 60%),
               linear-gradient(135deg, #002654 0%, #4682B4 50%, #87CEEB 100%)
             `,
-            backgroundSize: '400% 400%',
-            animation: 'gradientFlow 8s ease-in-out infinite'
+            // Static loading background to prevent flickering
+            backgroundAttachment: 'fixed'
           }}
         />
       )}

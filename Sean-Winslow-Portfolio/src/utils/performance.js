@@ -40,9 +40,9 @@ export const getPerformanceSettings = () => {
   const lowEnd = isLowEndDevice();
   
   return {
-    // Animation settings
+    // Animation settings - More conservative for mobile
     enableHeavyAnimations: !mobile && !lowEnd && !reducedMotion,
-    enableBackgroundAnimations: !mobile && !lowEnd && !reducedMotion,
+    enableBackgroundAnimations: !mobile && !lowEnd && !reducedMotion, // Disable UnicornStudio on mobile
     enableParallax: !mobile && !reducedMotion,
     
     // Lottie settings
@@ -51,11 +51,14 @@ export const getPerformanceSettings = () => {
     
     // Scroll settings
     smoothScroll: !reducedMotion,
-    scrollMultiplier: mobile ? 0.5 : 1,
+    scrollMultiplier: mobile ? 0.7 : 1, // Slightly increased for better mobile feel
     
-    // Animation durations (ms)
-    animationDuration: reducedMotion ? 0 : (mobile ? 300 : 600),
-    transitionDuration: reducedMotion ? 0 : (mobile ? 200 : 400),
+    // Animation durations (ms) - More conservative
+    animationDuration: reducedMotion ? 0 : (mobile ? 250 : 600),
+    transitionDuration: reducedMotion ? 0 : (mobile ? 150 : 400),
+    
+    // Prevent component flickering on mobile
+    preventFlicker: mobile,
     
     // Debug info
     deviceInfo: {

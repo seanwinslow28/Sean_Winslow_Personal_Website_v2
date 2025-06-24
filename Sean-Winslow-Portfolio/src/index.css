@@ -426,6 +426,28 @@ body {
     /* Disable smooth scroll on mobile for better performance */
     scroll-behavior: auto !important;
   }
+  
+  /* Prevent component flickering during scroll on mobile */
+  * {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Optimize animations for mobile */
+  .animate-fade-in-up,
+  .animate-fade-in-left,
+  .animate-fade-in-right,
+  .animate-scale-in {
+    transition-duration: 0.25s !important;
+  }
+  
+  /* Disable complex background animations on mobile */
+  .background-animation {
+    animation: none !important;
+    background-attachment: fixed !important;
+  }
 }
 
 /* Performance optimizations for smooth animations */

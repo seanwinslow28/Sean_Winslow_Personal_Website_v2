@@ -1,38 +1,53 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { getPerformanceSettings, createIntersectionObserver } from '../../utils/performance';
 
-const UnicornStudioBackground = () => {
+const UnicornStudioBackground = ({ onLoadingChange }) => {
   const containerRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const performanceSettings = getPerformanceSettings();
 
   useEffect(() => {
-    // Check for mobile devices
-    const checkMobile = () => {
-      const mobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      setIsMobile(mobile);
-    };
+    // Notify parent of loading state
+    if (onLoadingChange) {
+      onLoadingChange(!isLoaded);
+    }
+  }, [isLoaded, onLoadingChange]);
 
-    // Check for reduced motion preference
-    const checkReducedMotion = () => {
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      setReducedMotion(reducedMotion);
-    };
+  useEffect(() => {
+    // Set up intersection observer for lazy loading
+    if (containerRef.current) {
+      const observer = createIntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsVisible(true);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          rootMargin: '100px 0px', // Start loading when 100px away from viewport
+          threshold: 0.1
+        }
+      );
 
-    checkMobile();
-    checkReducedMotion();
+      observer.observe(containerRef.current);
 
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
+      return () => {
+        if (containerRef.current) {
+          observer.unobserve(containerRef.current);
+        }
+      };
+    }
   }, []);
 
   useEffect(() => {
-    // Skip complex animation on mobile or if reduced motion is preferred
-    if (isMobile || reducedMotion) {
-      setIsLoaded(true);
+    // Skip complex animation if reduced motion is preferred or heavy animations are disabled
+    if (!performanceSettings.enableBackgroundAnimations || !isVisible) {
+      if (!performanceSettings.enableBackgroundAnimations) {
+        setIsLoaded(true);
+      }
       return;
     }
 
@@ -44,10 +59,11 @@ const UnicornStudioBackground = () => {
           return;
         }
 
-        // Load UnicornStudio script
+        // Load UnicornStudio script with performance considerations
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.25/dist/unicornStudio.umd.js';
         script.async = true;
+        script.defer = true; // Use defer for better page load performance
         
         script.onload = () => {
           if (!window.UnicornStudio.isInitialized) {
@@ -62,6 +78,7 @@ const UnicornStudioBackground = () => {
           setIsLoaded(true);
         };
 
+        // Add to head for better caching as recommended in performance guide
         document.head.appendChild(script);
 
         // Cleanup function
@@ -82,9 +99,26 @@ const UnicornStudioBackground = () => {
           // Clear any existing content
           containerRef.current.innerHTML = '';
           
-          // Create the animation element using the project ID
+          // Create the animation element with performance optimizations from Unicorn Studio guide
           const animationDiv = document.createElement('div');
           animationDiv.setAttribute('data-us-project', '4swJSCcGnB2yGsrLWAyH');
+          
+          // Enable production mode for CDN caching and optimizations
+          animationDiv.setAttribute('data-us-production', 'true');
+          
+          // Enable lazy loading (though we're already managing visibility)
+          animationDiv.setAttribute('data-us-lazyload', 'true');
+          
+          // Performance parameters based on device capabilities
+          const scale = performanceSettings.deviceInfo.mobile ? '0.5' : '0.75'; // Lower scale for mobile
+          const dpi = performanceSettings.deviceInfo.mobile ? '1.0' : '1.2';
+          const fps = performanceSettings.deviceInfo.mobile ? '24' : '30';
+          
+          animationDiv.setAttribute('data-us-scale', scale);
+          animationDiv.setAttribute('data-us-dpi', dpi);
+          animationDiv.setAttribute('data-us-fps', fps);
+          
+          // Style the container
           animationDiv.style.width = '100%';
           animationDiv.style.height = '100%';
           animationDiv.style.position = 'absolute';
@@ -93,14 +127,22 @@ const UnicornStudioBackground = () => {
           
           containerRef.current.appendChild(animationDiv);
           
-          // Initialize the animation with performance optimizations
-          window.UnicornStudio.init({
-            fps: 30, // Reduced FPS for better performance
-            dpi: 1, // Reduced DPI for better performance
-            quality: 'medium' // Medium quality for balance
-          });
+          // Initialize with global performance settings
+          window.UnicornStudio.init();
           
           setIsLoaded(true);
+          
+          // Log performance settings in development
+          if (process.env.NODE_ENV === 'development') {
+            console.log('UnicornStudio Performance Settings:', {
+              scale,
+              dpi,
+              fps,
+              production: true,
+              lazyload: true,
+              deviceInfo: performanceSettings.deviceInfo
+            });
+          }
         } catch (error) {
           console.warn('Error initializing UnicornStudio animation:', error);
           setIsLoaded(true);
@@ -108,20 +150,14 @@ const UnicornStudioBackground = () => {
       }
     };
 
-    // Add a delay to prevent immediate loading issues
-    const timer = setTimeout(() => {
-      loadUnicornStudio();
-    }, 100);
+    loadUnicornStudio();
+  }, [performanceSettings, isVisible]);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isMobile, reducedMotion]);
-
-  // Fallback CSS animation for mobile/reduced motion
-  if (isMobile || reducedMotion) {
+  // Fallback CSS animation for devices without background animations support
+  if (!performanceSettings.enableBackgroundAnimations) {
     return (
       <div 
+        ref={containerRef}
         className="fixed inset-0 -z-10 gpu-accelerated background-animation"
         style={{
           background: `
@@ -130,7 +166,7 @@ const UnicornStudioBackground = () => {
             linear-gradient(135deg, #002654 0%, #4682B4 50%, #87CEEB 100%)
           `,
           backgroundSize: '400% 400%',
-          animation: 'gradientFlow 8s ease-in-out infinite'
+          animation: performanceSettings.deviceInfo.reducedMotion ? 'none' : 'gradientFlow 8s ease-in-out infinite'
         }}
       />
     );

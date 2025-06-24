@@ -1,5 +1,5 @@
 // Animation utility functions for React components
-// Compatible with Lenis and Locomotive Scroll
+// Optimized for Lenis smooth scrolling with performance enhancements
 
 // Easing functions
 export const easings = {
@@ -117,27 +117,22 @@ export const animationVariants = {
   }
 };
 
-// Scroll-triggered animation configurations
+// Lenis smooth scroll configuration (optimized)
 export const scrollAnimations = {
-  // For Locomotive Scroll
-  locomotive: {
-    fadeInUp: 'data-scroll data-scroll-delay="0.1"',
-    fadeInLeft: 'data-scroll data-scroll-direction="horizontal" data-scroll-delay="0.1"',
-    parallax: 'data-scroll data-scroll-speed="-2"',
-    parallaxFast: 'data-scroll data-scroll-speed="-4"',
-    parallaxSlow: 'data-scroll data-scroll-speed="-1"'
-  },
-  
-  // For Lenis smooth scroll
+  // Performance-optimized Lenis settings
   lenis: {
     speed: 1.2,
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smooth: true,
     mouseMultiplier: 1,
-    smoothTouch: false,
+    smoothTouch: false, // Disabled for better mobile performance
     touchMultiplier: 2,
-    infinite: false
+    infinite: false,
+    // Mobile optimizations
+    syncTouch: false,
+    syncTouchLerp: 0.1,
+    touchInertiaMultiplier: 35
   }
 };
 

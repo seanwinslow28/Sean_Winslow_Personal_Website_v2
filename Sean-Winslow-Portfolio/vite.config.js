@@ -13,13 +13,15 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          animations: ['framer-motion', 'lottie-react', 'lottie-web'],
-          lottie: ['@lottiefiles/lottie-interactivity']
+          animations: ['framer-motion', 'lottie-react', 'lottie-web', '@lottiefiles/lottie-interactivity'],
+          // Remove empty lottie chunk by combining with animations
         }
       }
     },
     // Increase chunk size warning limit
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    // Use esbuild minifier (faster and sufficient)
+    minify: 'esbuild'
   },
   server: {
     // Enable HMR for faster development
@@ -32,8 +34,21 @@ export default defineConfig({
     allowedHosts: ['witty-peas-press.loca.lt', '.loca.lt']
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'lottie-react', 'lottie-web', '@lottiefiles/lottie-interactivity']
+    include: ['react', 'react-dom', 'framer-motion', 'lottie-react', 'lottie-web', '@lottiefiles/lottie-interactivity'],
+    // Exclude unused dependencies
+    exclude: ['gsap', 'react-router-dom', 'simplex-noise']
   },
   // Add support for Lottie JSON files
-  assetsInclude: ['**/*.json', '**/*.lottie']
+  assetsInclude: ['**/*.json', '**/*.lottie'],
+  // Additional performance optimizations
+  esbuild: {
+    // Remove unused imports
+    treeShaking: true,
+    // Optimize for production
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
+    // Remove console.logs in production
+    drop: ['console', 'debugger']
+  }
 })

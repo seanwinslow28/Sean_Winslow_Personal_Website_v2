@@ -13,14 +13,11 @@
   },
   "dependencies": {
     "framer-motion": "^10.18.0",
-    "gsap": "^3.12.0",
     "lenis": "^1.3.4",
     "lottie-react": "^2.4.1",
     "lottie-web": "^5.13.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
-    "simplex-noise": "^4.0.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@lottiefiles/lottie-interactivity": "^1.6.2",

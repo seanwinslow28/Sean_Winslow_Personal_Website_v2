@@ -17,7 +17,9 @@
     "lottie-react": "^2.4.1",
     "lottie-web": "^5.13.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom":,,
+   "gsap": "^3.12.2",
+    "locomotive-scroll": "^4.1.4" "^18.2.0"
   },
   "devDependencies": {
     "@lottiefiles/lottie-interactivity": "^1.6.2",

@@ -4,11 +4,12 @@ import Projects from './components/sections/Projects';
 import About from './components/sections/About';
 import Contact from './components/sections/Contact';
 import ClickSpark from './components/ui/ClickSpark';
-import useLenis from './hooks/useLenis';
+import useSmoothScroll from './hooks/useSmoothScroll';
 
 function App() {
-  // Initialize Lenis smooth scrolling
-  useLenis();
+    // Initialize smooth scroll engine
+  useSmoothScroll();
+;
 
   return (
     <ClickSpark>

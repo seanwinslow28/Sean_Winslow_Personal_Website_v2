@@ -28,17 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Align ChromeDriver with installed Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable unzip
-          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
-          CHROME_MAJOR="${CHROME_VERSION%%.*}"
-          DRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR})
-          curl -s -o /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
-          unzip -o /tmp/chromedriver.zip -d /tmp/
-          sudo mv /tmp/chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+      - name: Install latest Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Install matching ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+        with:
+          chromedriver-version: 'matching'
 
       - name: Build site
         run: npm run build

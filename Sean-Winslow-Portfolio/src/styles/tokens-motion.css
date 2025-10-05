@@ -1,0 +1,90 @@
+/* motion-tokens.css — drop into src/styles and import once */
+
+/* 1) Tokens */
+:root {
+  /* Durations (150–300 ms band) */
+  --duration-150: 150ms; /* micro: hover, focus */
+  --duration-180: 180ms; /* small enters/changes */
+  --duration-200: 200ms; /* common UI transitions */
+  --duration-240: 240ms; /* reveal-on-scroll, tooltips */
+  --duration-300: 300ms; /* dialogs/overlays/page */
+
+  /* Easing (Material-aligned) */
+  --ease-standard:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate:  cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate:  cubic-bezier(0.4, 0, 1, 1);
+
+  /* Semantic motion presets */
+  /* Enter/appear */
+  --motion-enter-duration: var(--duration-200);
+  --motion-enter-easing:   var(--ease-decelerate);
+
+  /* Exit/disappear */
+  --motion-exit-duration: var(--duration-180);
+  --motion-exit-easing:   var(--ease-accelerate);
+
+  /* Hover */
+  --motion-hover-duration-in:  var(--duration-150);
+  --motion-hover-duration-out: var(--duration-150);
+  --motion-hover-easing:       var(--ease-standard);
+
+  /* Focus (visible ring flourish) */
+  --motion-focus-duration: var(--duration-150);
+  --motion-focus-easing:   var(--ease-decelerate);
+
+  /* Reveal on scroll / in-view */
+  --motion-reveal-duration: var(--duration-240);
+  --motion-reveal-easing:   var(--ease-decelerate);
+
+  /* Overlays / sheets / modals */
+  --motion-overlay-enter-duration: var(--duration-300);
+  --motion-overlay-exit-duration:  var(--duration-240);
+  --motion-overlay-easing-in:      var(--ease-decelerate);
+  --motion-overlay-easing-out:     var(--ease-accelerate);
+
+  /* Tab/ink indicator / small filters */
+  --motion-indicator-duration: var(--duration-150);
+  --motion-indicator-easing:   var(--ease-standard);
+
+  /* Transition shorthands (use as needed) */
+  --transition-hover:   transform var(--motion-hover-duration-in) var(--motion-hover-easing),
+                        opacity   var(--motion-hover-duration-in) var(--motion-hover-easing);
+
+  --transition-focus:   box-shadow var(--motion-focus-duration) var(--motion-focus-easing),
+                        outline-offset var(--motion-focus-duration) var(--motion-focus-easing);
+
+  --transition-enter:   transform var(--motion-enter-duration) var(--motion-enter-easing),
+                        opacity   var(--motion-enter-duration) var(--motion-enter-easing);
+
+  --transition-exit:    transform var(--motion-exit-duration) var(--motion-exit-easing),
+                        opacity   var(--motion-exit-duration) var(--motion-exit-easing);
+}
+
+/* 2) Reduced-motion: collapse timings and remove large transforms */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-150: 0ms;
+    --duration-180: 0ms;
+    --duration-200: 0ms;
+    --duration-240: 0ms;
+    --duration-300: 0ms;
+  }
+  * { animation: none !important; transition: none !important; }
+  /* Optional: ensure content just appears without movement */
+  .reveal, .tilt, .parallax { transform: none !important; opacity: 1 !important; }
+}
+
+/* 3) Suggested usage helpers (optional) */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--motion-reveal-duration) var(--motion-reveal-easing),
+              transform var(--motion-reveal-duration) var(--motion-reveal-easing);
+}
+.reveal.is-inview { opacity: 1; transform: none; }
+
+.button:hover   { transition: var(--transition-hover); transform: translateY(-1px); }
+.button:focus-visible { transition: var(--transition-focus); }
+.dialog[open]   { transition: var(--transition-enter); }
+.dialog.closing { transition: var(--transition-exit); }
+.tab__ink { transition: transform var(--motion-indicator-duration) var(--motion-indicator-easing); }

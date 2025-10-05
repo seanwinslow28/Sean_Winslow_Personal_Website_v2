@@ -164,13 +164,21 @@ p, li { font-size: var(--fs-0); }
 
 /* Buttons & interactive */
 .button {
+  --focus-scale: 1;
+  --magnet-x: 0px;
+  --magnet-y: 0px;
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 44px; padding: 0 var(--space-5);
   border-radius: var(--radius-md);
   background: var(--color-accent-hex); background: var(--color-accent);
   color: #fff; box-shadow: var(--shadow-2);
+  transform: translate3d(var(--magnet-x), var(--magnet-y), 0) scale(var(--focus-scale));
+  transition:
+    transform var(--motion-hover-duration-in) var(--motion-hover-easing),
+    box-shadow var(--motion-focus-duration) var(--motion-focus-easing);
 }
 .button:focus-visible {
+  --focus-scale: 1.02;
   outline: none;
   box-shadow: var(--shadow-2), var(--focus-ring-hex);
   box-shadow: var(--shadow-2), var(--focus-ring);
@@ -184,8 +192,21 @@ p, li { font-size: var(--fs-0); }
 }
 
 /* Links */
-a { color: var(--color-accent-hex); color: var(--color-accent); text-underline-offset: 2px; }
-a:hover { text-underline-offset: 3px; }
+a {
+  color: var(--color-accent-hex);
+  color: var(--color-accent);
+  text-underline-offset: var(--space-1);
+  text-decoration-thickness: 0.08em;
+  transition:
+    text-underline-offset var(--motion-hover-duration-in) var(--motion-hover-easing),
+    text-decoration-thickness var(--motion-hover-duration-in) var(--motion-hover-easing),
+    color var(--motion-hover-duration-in) var(--motion-hover-easing);
+}
+a:hover,
+a:focus-visible {
+  text-underline-offset: var(--space-2);
+  text-decoration-thickness: 0.12em;
+}
 
 /* Code */
 code, pre { font-family: var(--font-mono); font-variation-settings: "wght" var(--mono-wght-normal); }

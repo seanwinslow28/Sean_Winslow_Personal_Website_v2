@@ -35,10 +35,7 @@ jobs:
 
       - name: Capture Chrome version
         run: |
-          CHROME_BIN="${CHROME_PATH:-}"
-          if [ -z "$CHROME_BIN" ]; then
-            CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable)"
-          fi
+          CHROME_BIN="${CHROME_PATH:-$(command -v google-chrome || command -v google-chrome-stable)}"
           if [ -z "$CHROME_BIN" ]; then
             echo "Unable to locate Chrome binary" >&2
             exit 1

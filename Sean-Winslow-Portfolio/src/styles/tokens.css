@@ -1,0 +1,205 @@
+/* tokens.css — paste into your Vite + React app (e.g., src/styles/tokens.css)
+Usage pattern for fallbacks (hex → OKLCH):
+  color: var(--text-primary-hex);
+  color: oklch(var(--text-primary-oklch));
+*/
+
+/* 1) Base Theme — Dark */
+:root {
+  /* —— Brand palette (OKLCH values include % L, chroma, hue) —— */
+  /* Core surfaces */
+  --bg-900-hex: #0B0F19;              /* deep navy */
+  --bg-900-oklch: 16.95% 0.022 267.3;
+
+  --surface-900-hex: #0F172A;         /* slate 900 */
+  --surface-900-oklch: 20.77% 0.0398 265.8;
+
+  --surface-800-hex: #1F2937;         /* slate 800 */
+  --surface-800-oklch: 27.81% 0.0296 256.8;
+
+  --surface-700-hex: #334155;         /* slate 700 */
+  --surface-700-oklch: 37.17% 0.0392 257.3;
+
+  /* Text & UI neutrals */
+  --text-primary-hex: #F8FAFC;        /* neutral 100 */
+  --text-primary-oklch: 98.42% 0.0034 247.9;
+
+  --text-secondary-hex: #CBD5E1;      /* neutral 300 */
+  --text-secondary-oklch: 86.90% 0.0198 252.9;
+
+  --text-muted-hex: #E2E8F0;          /* neutral 200 */
+  --text-muted-oklch: 92.88% 0.0126 255.5;
+
+  /* Accents */
+  --accent-500-hex: #2140FF;          /* cobalt */
+  --accent-500-oklch: 50.65% 0.2764 266.4;
+
+  --accent-300-hex: #01A7C1;          /* teal */
+  --accent-300-oklch: 66.98% 0.1176 214.0;
+
+  --accent-200-hex: #E4FE66;          /* neon lime (highlight) */
+  --accent-200-oklch: 94.97% 0.1769 118.1;
+
+  /* States */
+  --success-500-hex: #16C784;         /* up green */
+  --success-500-oklch: 73.35% 0.1629 159.8;
+
+  --danger-500-hex: #EA3943;          /* down red */
+  --danger-500-oklch: 61.87% 0.2122 23.3;
+
+  /* —— Typography —— */
+  --font-sans: "Inter Variable", Inter, system-ui, -apple-system, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular,
+               Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Variable axes (use with @supports font-variation-settings) */
+  --sans-wght-normal: 450;      /* 300–800 available */
+  --sans-wght-strong: 650;
+  --sans-slnt: 0;               /* Inter supports slnt -10..0 */
+
+  --mono-wght-normal: 450;      /* 300–800 available */
+  --mono-wght-strong: 650;
+
+  /* Type scale (fluid with clamp). Steps: -1..5 */
+  --fs--1: clamp(0.84rem, 0.80rem + 0.2vw, 0.92rem);
+  --fs-0:  clamp(0.98rem, 0.94rem + 0.3vw, 1.08rem);  /* body */
+  --fs-1:  clamp(1.10rem, 1.04rem + 0.4vw, 1.25rem);
+  --fs-2:  clamp(1.28rem, 1.18rem + 0.6vw, 1.50rem);
+  --fs-3:  clamp(1.50rem, 1.36rem + 0.9vw, 1.80rem);
+  --fs-4:  clamp(1.80rem, 1.60rem + 1.2vw, 2.20rem);
+  --fs-5:  clamp(2.20rem, 1.94rem + 1.6vw, 2.80rem);
+
+  /* Leading & measure */
+  --leading-tight: 1.3;
+  --leading-normal: 1.5;  /* target for body copy */
+  --leading-loose: 1.65;
+
+  /* CPL control (characters per line) */
+  --measure-long: 66ch;   /* sweet spot: 50–75 CPL */
+  --measure-short: 45ch;  /* sidebars/cards */
+
+  /* —— Spacing (8-pt base) —— */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 64px;
+  --space-10: 96px;
+
+  /* —— Radii —— */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  /* —— Shadows (dark UI tuned) —— */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-2: 0 6px 16px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04);
+  --shadow-3: 0 12px 28px rgba(0,0,0,0.55), 0 2px 0 rgba(255,255,255,0.05);
+  --shadow-glow-accent: 0 0 0 3px color-mix(in oklch,
+                        oklch(var(--accent-500-oklch)) 35%, transparent);
+
+  /* —— Focus ring (meets WCAG 1.4.11 ≥ 3:1) —— */
+  --focus-ring: 0 0 0 3px oklch(var(--accent-200-oklch) / 0.65);
+  --focus-ring-hex: 0 0 0 3px rgba(228,254,102,0.65);
+
+  /* —— Semantic aliases —— */
+  --color-bg-hex: var(--bg-900-hex);
+  --color-bg: oklch(var(--bg-900-oklch));
+
+  --color-surface-hex: var(--surface-900-hex);
+  --color-surface: oklch(var(--surface-900-oklch));
+
+  --color-elev-hex: var(--surface-800-hex);
+  --color-elev: oklch(var(--surface-800-oklch));
+
+  --color-text-hex: var(--text-primary-hex);
+  --color-text: oklch(var(--text-primary-oklch));
+
+  --color-text-dim-hex: var(--text-secondary-hex);
+  --color-text-dim: oklch(var(--text-secondary-oklch));
+
+  --color-accent-hex: var(--accent-500-hex);
+  --color-accent: oklch(var(--accent-500-oklch));
+
+  --color-success-hex: var(--success-500-hex);
+  --color-success: oklch(var(--success-500-oklch));
+
+  --color-danger-hex: var(--danger-500-hex);
+  --color-danger: oklch(var(--danger-500-oklch));
+}
+
+/* 2) Global application of tokens */
+html, body {
+  background: var(--color-bg-hex);
+  background: var(--color-bg);
+  color: var(--color-text-hex);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--leading-normal);
+  text-rendering: optimizeLegibility;
+}
+
+/* Content measure helpers */
+.prose, [data-measure="long"] { max-width: var(--measure-long); }
+[data-measure="short"] { max-width: var(--measure-short); }
+
+/* Headings */
+h1 { font-size: var(--fs-5); font-weight: 700; line-height: 1.15; }
+h2 { font-size: var(--fs-4); font-weight: 650; line-height: 1.2; }
+h3 { font-size: var(--fs-3); font-weight: 650; line-height: 1.25; }
+
+/* Body text */
+p, li { font-size: var(--fs-0); }
+
+/* Buttons & interactive */
+.button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-hex); background: var(--color-accent);
+  color: #fff; box-shadow: var(--shadow-2);
+}
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-2), var(--focus-ring-hex);
+  box-shadow: var(--shadow-2), var(--focus-ring);
+}
+
+/* Cards */
+.card {
+  background: var(--color-surface-hex); background: var(--color-surface);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-1);
+  padding: var(--space-6);
+}
+
+/* Links */
+a { color: var(--color-accent-hex); color: var(--color-accent); text-underline-offset: 2px; }
+a:hover { text-underline-offset: 3px; }
+
+/* Code */
+code, pre { font-family: var(--font-mono); font-variation-settings: "wght" var(--mono-wght-normal); }
+
+/* Optional: variable font tuning */
+@supports (font-variation-settings: normal) {
+  body { font-variation-settings: "wght" var(--sans-wght-normal), "slnt" var(--sans-slnt); }
+  strong { font-variation-settings: "wght" var(--sans-wght-strong); }
+}
+
+/* Respect reduced motion across the system */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Example utility to ensure 50–75 CPL on main content */
+main .prose { margin-inline: auto; padding-inline: var(--space-6); }

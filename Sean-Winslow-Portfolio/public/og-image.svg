@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Sean Winslow AI Product Manager</title>
+  <desc id="desc">Brand image highlighting Sean Winslow's AI product leadership</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030711" />
+      <stop offset="100%" stop-color="#1e1135" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f754ff" />
+      <stop offset="100%" stop-color="#6d6dff" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="32" />
+  <g transform="translate(120, 140)" fill="#f7f4ff">
+    <text font-family="'Inter', 'Segoe UI', sans-serif" font-weight="700" font-size="64" letter-spacing="0.02em">
+      Sean Winslow
+    </text>
+    <text y="92" font-family="'Inter', 'Segoe UI', sans-serif" font-weight="500" font-size="36" fill="#c9c3e0">
+      AI Product Manager · Outcome-first delivery
+    </text>
+  </g>
+  <g transform="translate(120, 300)">
+    <rect width="420" height="8" fill="url(#accent)" rx="4" />
+    <text y="70" font-family="'Inter', 'Segoe UI', sans-serif" font-weight="400" font-size="30" fill="#c9c3e0">
+      Forecast copilots · Ops intelligence · Change rituals
+    </text>
+  </g>
+</svg>

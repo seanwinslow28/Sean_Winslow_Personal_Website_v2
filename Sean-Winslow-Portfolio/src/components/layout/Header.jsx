@@ -1,107 +1,95 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { handleNavClick } from '../../utils/smoothScroll';
 
-const Header = () => {
+const NAV_ITEMS = [
+  { href: '#work', label: 'Work', isAnchor: true },
+  { href: '#principles', label: 'Principles', isAnchor: true },
+  { href: '/about', label: 'About', isAnchor: false },
+  { href: '#contact', label: 'Contact', isAnchor: true },
+];
 
-  const navItems = [
-    { href: '#projects', label: 'Projects' },
-    { href: '#about', label: 'About' },
-    { href: '#contact', label: 'Connect' },
-  ];
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLinkInteraction = (event, item) => {
+    if (item.isAnchor) {
+      handleNavClick(event, item.href);
+    }
+
+    if (!item.isAnchor) {
+      return;
+    }
+
+    setIsMenuOpen(false);
+  };
+
+  const renderNavLink = (item) => (
+    <a
+      key={item.label}
+      href={item.href}
+      className="nav-link"
+      onClick={(event) => {
+        if (item.isAnchor) {
+          handleLinkInteraction(event, item);
+        } else {
+          setIsMenuOpen(false);
+        }
+      }}
+    >
+      {item.label}
+    </a>
+  );
 
   return (
-    <motion.header
-      className="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo - Far Left */}
-          <motion.div
-            className="text-2xl font-bold"
-            style={{ fontFamily: 'Montserrat, sans-serif' }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span style={{ 
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, #3b82f6 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              textShadow: '0 2px 4px rgba(59, 130, 246, 0.3)'
-            }}>Sean</span> <span style={{ 
-              color: '#CEFA05',
-              textShadow: '0 2px 4px rgba(206, 250, 5, 0.3)'
-            }}>Winslow</span>
-          </motion.div>
+    <>
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <header className="site-header" role="banner">
+        <div className="site-header__inner">
+          <a href="/" className="site-logo" aria-label="Sean Winslow home">
+            Sean Winslow
+          </a>
 
-          {/* Navigation - Far Right */}
-          <nav className="hidden md:flex items-center space-x-2 text-base font-semibold">
-            {navItems.map((item, index) => {
-                             const getNavItemColor = () => {
-                 if (item.label === 'Projects' || item.label === 'About' || item.label === 'Connect') {
-                   return '#CEFA05'; // Lime green
-                 }
-                 return '#ffffff'; // Default white
-               };
+          <nav aria-label="Primary" className="site-nav">
+            <div className="site-nav__desktop">
+              {NAV_ITEMS.map(renderNavLink)}
+            </div>
 
-              return (
-                <div key={item.href} className="flex items-center">
-                                     <motion.a
-                     href={item.href}
-                     onClick={(e) => handleNavClick(e, item.href)}
-                     className="hover:opacity-80 transition-all duration-200 cursor-pointer"
-                     style={{ 
-                       color: getNavItemColor(),
-                       textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
-                     }}
-                    whileHover={{ 
-                      scale: 1.1,
-                      y: -2,
-                      rotate: [0, -2, 2, 0],
-                      textShadow: `0px 0px 8px ${getNavItemColor()}80`,
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 400, 
-                      damping: 10,
-                      rotate: {
-                        duration: 0.3,
-                        ease: "easeInOut"
+            <button
+              type="button"
+              className="menu-toggle"
+              aria-expanded={isMenuOpen}
+              aria-controls="primary-navigation"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+            >
+              <span className="menu-toggle__label">Menu</span>
+              <span className="menu-toggle__icon" aria-hidden="true">☰</span>
+            </button>
+
+            {isMenuOpen && (
+              <div id="primary-navigation" className="site-nav__mobile">
+                {NAV_ITEMS.map((item) => (
+                  <a
+                    key={`mobile-${item.label}`}
+                    href={item.href}
+                    className="nav-link"
+                    onClick={(event) => {
+                      if (item.isAnchor) {
+                        handleLinkInteraction(event, item);
+                      } else {
+                        setIsMenuOpen(false);
                       }
                     }}
                   >
                     {item.label}
-                  </motion.a>
-                  {index < navItems.length - 1 && (
-                    <span className="mx-2 text-white/40">/</span>
-                  )}
-                </div>
-              );
-            })}
+                  </a>
+                ))}
+              </div>
+            )}
           </nav>
-
-          {/* Mobile menu button - Far Right */}
-          <div className="md:hidden">
-            <motion.button
-              onClick={() => {}} // Add mobile menu functionality later
-              className="p-3 text-white/80 hover:text-white transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </motion.button>
-          </div>
         </div>
-      </div>
-    </motion.header>
+      </header>
+    </>
   );
 };
 
-export default Header; 
+export default Header;

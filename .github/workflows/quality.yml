@@ -1,0 +1,77 @@
+name: CI Quality Rails
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  quality:
+    name: Quality gates
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Sean-Winslow-Portfolio
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: Sean-Winslow-Portfolio/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set up Chrome
+        id: setup_chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Export Chrome env vars
+        run: |
+          echo "CHROME_PATH=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "GOOGLE_CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "PUPPETEER_EXECUTABLE_PATH=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          ${{ steps.setup_chrome.outputs.chrome-path }} --version
+
+      - name: Build site
+        run: npm run build
+
+      - name: Check asset budgets
+        run: node scripts/check-budgets.mjs
+
+      - name: Run axe-core accessibility scans
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ env.CHROME_PATH }}
+        run: |
+          npx http-server dist --port 4173 --silent &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
+          sleep 5
+          npx @axe-core/cli \
+            http://localhost:4173/ \
+            http://localhost:4173/case-sample \
+            http://localhost:4173/lab
+
+      - name: Run Lighthouse CI
+        env:
+          CHROME_PATH: ${{ env.CHROME_PATH }}
+        run: |
+          npx @lhci/cli@0.12.x autorun \
+            --config=./lighthouserc.json \
+            --collect.settings.chromePath="$CHROME_PATH" \
+            --collect.settings.chromeFlags="--headless --no-sandbox --disable-gpu"
+
+      - name: Upload Lighthouse HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: Sean-Winslow-Portfolio/.lighthouseci/*.html

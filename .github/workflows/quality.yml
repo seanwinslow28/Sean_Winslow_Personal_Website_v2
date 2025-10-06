@@ -29,17 +29,21 @@ jobs:
         run: npm ci
 
       - name: Install latest Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
 
       - name: Capture Chrome version
+        env:
+          SETUP_CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
-          CHROME_BIN="${CHROME_PATH:-$(command -v google-chrome || command -v google-chrome-stable)}"
+          CHROME_BIN="${SETUP_CHROME_PATH:-${CHROME_PATH:-$(command -v google-chrome || command -v google-chrome-stable || command -v chrome)}}"
           if [ -z "$CHROME_BIN" ]; then
             echo "Unable to locate Chrome binary" >&2
             exit 1
           fi
+          echo "Using Chrome binary: $CHROME_BIN"
           CHROME_VERSION="$($CHROME_BIN --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+')"
           if [ -z "$CHROME_VERSION" ]; then
             echo "Unable to determine Chrome version" >&2

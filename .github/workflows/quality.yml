@@ -2,8 +2,7 @@ name: CI Quality Rails
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
 
 jobs:
@@ -28,33 +27,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install latest Chrome
-        id: setup-chrome
+      - name: Set up Chrome
+        id: setup_chrome
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
 
-      - name: Capture Chrome version
-        env:
-          SETUP_CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+      - name: Export Chrome env vars
         run: |
-          CHROME_BIN="${SETUP_CHROME_PATH:-${CHROME_PATH:-$(command -v google-chrome || command -v google-chrome-stable || command -v chrome)}}"
-          if [ -z "$CHROME_BIN" ]; then
-            echo "Unable to locate Chrome binary" >&2
-            exit 1
-          fi
-          echo "Using Chrome binary: $CHROME_BIN"
-          CHROME_VERSION="$($CHROME_BIN --version | grep -oE '[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+')"
-          if [ -z "$CHROME_VERSION" ]; then
-            echo "Unable to determine Chrome version" >&2
-            exit 1
-          fi
-          echo "CHROME_VERSION=$CHROME_VERSION" >> "$GITHUB_ENV"
-
-      - name: Install matching ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: ${{ env.CHROME_VERSION }}
+          echo "CHROME_PATH=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "GOOGLE_CHROME_BIN=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "PUPPETEER_EXECUTABLE_PATH=${{ steps.setup_chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          ${{ steps.setup_chrome.outputs.chrome-path }} --version
 
       - name: Build site
         run: npm run build
@@ -63,15 +48,27 @@ jobs:
         run: node scripts/check-budgets.mjs
 
       - name: Run axe-core accessibility scans
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ env.CHROME_PATH }}
         run: |
           npx http-server dist --port 4173 --silent &
           SERVER_PID=$!
           trap "kill $SERVER_PID" EXIT
           sleep 5
-          npx @axe-core/cli http://localhost:4173/ http://localhost:4173/case-sample http://localhost:4173/lab
+          npx @axe-core/cli \
+            --chromium-flags="--headless=new --no-sandbox --disable-gpu" \
+            http://localhost:4173/ \
+            http://localhost:4173/case-sample \
+            http://localhost:4173/lab
 
       - name: Run Lighthouse CI
-        run: npx @lhci/cli@0.12.x autorun --config=./lighthouserc.json
+        env:
+          CHROME_PATH: ${{ env.CHROME_PATH }}
+        run: |
+          npx @lhci/cli@0.12.x autorun \
+            --config=./lighthouserc.json \
+            --collect.settings.chromePath="$CHROME_PATH" \
+            --collect.settings.chromeFlags="--headless --no-sandbox --disable-gpu"
 
       - name: Upload Lighthouse HTML report
         if: always()
